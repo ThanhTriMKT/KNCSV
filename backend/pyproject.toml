@@ -1,0 +1,100 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # Web framework
+    "fastapi>=0.141.1",
+    "uvicorn>=0.52.1",
+    "python-multipart>=0.0.32", # upload file
+    # Database
+    "sqlalchemy[asyncio]>=2.0.51",
+    "asyncpg>=0.31.0",
+    "pgvector>=0.5.0",
+    "alembic>=1.19.1",
+    # Auth
+    "fastapi-users[sqlalchemy]>=15.0.5",
+    # Email
+    "resend>=2.36.0",
+    # Streaming
+    "sse-starlette>=3.4.8",
+    # Extraction
+    "pymupdf>=1.28.2",
+    # Google Calendar (anonymous Meet creation)
+    "google-api-python-client>=2.150.0",
+    "google-auth>=2.35.0",
+    # Utilities
+    "pandas>=3.0.5",
+    "pydantic>=2.13.4",
+    "pydantic-settings>=2.15.0",
+    "loguru>=0.7.3",
+    "httpx>=0.28.1",
+    "python-dotenv>=1.2.2",
+    "tenacity>=9.1.4",
+    # AI
+    "langchain>=1.4.0",
+    "langgraph>=1.2.11",
+    "langchain-core>=1.6.1",
+    "langchain-google-genai>=4.4.0",
+    "langchain-openai>=1.6.0",
+    "langchain-anthropic>=1.7.1",
+    "langgraph-checkpoint-postgres>=3.1.2",
+    "openpyxl>=3.1.5",
+    "psycopg[binary]>=3.2.0",
+    "langchain-openrouter>=0.2.8",
+    "aiosqlite>=0.22.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.16.2",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [
+    "alembic/versions",
+    "backend/alembic/versions",
+    "**/alembic/versions/**",
+    "**alembic/versions**",
+]
+
+[tool.ruff.lint]
+ignore = ["E501"]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "SIM",
+]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.params.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Header",
+    "fastapi.Cookie",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint.extend-per-file-ignores]
+"**/alembic/versions/**" = ["ALL"]

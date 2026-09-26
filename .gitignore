@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.local
+.DS_Store
+.idea/
+*.db
+*.sqlite
+*.sqlite3

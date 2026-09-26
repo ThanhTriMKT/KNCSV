@@ -1,0 +1,27 @@
+{
+  "name": "kncsv",
+  "version": "1.0.0",
+  "description": "Cổng thông tin Quản lý & Kết nối Cựu sinh viên - Khoa CNTT ĐH Đà Lạt",
+  "author": "ThanhTriMKT <thanhtri.dev.pg@gmail.com>",
+  "scripts": {
+    "install:all": "uv sync --project backend && npm --prefix frontend install",
+    "check:all": "uv sync --project backend && uv run --project backend ruff check && npm --prefix frontend run lint",
+    "dev": "concurrently -k -n \"BACKEND,FRONTEND\" -c \"cyan,magenta\" \"backend\\.venv\\Scripts\\uvicorn app.main:app --reload --reload-dir backend --app-dir backend\" \"npm --prefix frontend run dev\"",
+    "dev1": "concurrently -k -n \"BACKEND,FRONTEND\" -c \"cyan,magenta\" \"python -m uv run --project backend uvicorn --app-dir backend app.main:app --reload\" \"npm --prefix frontend run dev\"",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "concurrently": "^10.0.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0"
+  },
+  "lint-staged": {
+    "backend/**/*.py": [
+      "uv run --project backend ruff check --fix",
+      "uv run --project backend ruff format"
+    ],
+    "frontend/**/*.{js,jsx,ts,tsx,json,css}": [
+      "npm --prefix frontend run check:write"
+    ]
+  }
+}
